@@ -1,6 +1,7 @@
 package com.bank.accounts.controller;
 
 import com.bank.accounts.constants.AccountsConstants;
+import com.bank.accounts.dto.AccountsContactInfoDto;
 import com.bank.accounts.dto.CustomerDTO;
 import com.bank.accounts.dto.ErrorResponseDTO;
 import com.bank.accounts.dto.ResponseDTO;
@@ -11,6 +12,7 @@ import jakarta.validation.constraints.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RefreshScope
 @RequestMapping(path = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
 @Validated
 public class AccountsController {
@@ -29,6 +32,9 @@ public class AccountsController {
 
     @Value("${build.version}")
     private String buildVersion;
+
+    @Autowired
+    private AccountsContactInfoDto accountsContactInfoDto;
 
     @PostMapping("/create")
     public ResponseEntity<ResponseDTO> createAccount(@Validated @RequestBody CustomerDTO customerDTO) {
@@ -82,5 +88,12 @@ public class AccountsController {
     @GetMapping("/java-info")
     public ResponseEntity<String> getJavaVersion(){
         return ResponseEntity.status(HttpStatus.OK).body(environment.getProperty("JAVA_HOME"));
+    }
+
+    @GetMapping("/contact-info")
+    public ResponseEntity<AccountsContactInfoDto> getContactInfo() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(accountsContactInfoDto);
     }
 }
