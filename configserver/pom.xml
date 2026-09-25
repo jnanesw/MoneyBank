@@ -45,10 +45,10 @@
 			<artifactId>spring-boot-starter-actuator-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-bus-amqp</artifactId>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.cloud</groupId>-->
+<!--			<artifactId>spring-cloud-starter-bus-amqp</artifactId>-->
+<!--		</dependency>-->
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
@@ -79,7 +79,7 @@
 					</from>
 
 					<to>
-						<image>jnaneswarraon/${project.artifactId}:s6</image>
+						<image>jnaneswarraon/${project.artifactId}:s7</image>
 					</to>
 				</configuration>
 			</plugin>
